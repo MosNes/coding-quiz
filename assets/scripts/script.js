@@ -103,12 +103,13 @@ var quizStartCard = {
     el3: '<button class="button" id="quiz-start-btn">Start Quiz</button>'
 }
 
-//function to create a non-question card element
-var createCard = function(cardObject) {
+
+//function to create a blank card element
+var createCardEl = function() {
     //create the div to  hold the card's elements
-    card = document.createElement("div");
-    card.setAttribute("class","card");
-    //create the 3 elements of each card
+    cardEl = document.createElement("div");
+    cardEl.setAttribute("class","card");
+    //create the three sub element containers
     el1 = document.createElement("div");
     el1.setAttribute("class","el1");
     el2 = document.createElement("div");
@@ -116,26 +117,51 @@ var createCard = function(cardObject) {
     el3 = document.createElement("div");
     el3.setAttribute("class","el3");
     //add 3 elements to card element
-    card.appendChild(el1);
-    card.appendChild(el2);
-    card.appendChild(el3);
+    cardEl.appendChild(el1);
+    cardEl.appendChild(el2);
+    cardEl.appendChild(el3);
+    return cardEl;
+};
 
+//function to format a non-question card element
+var createCard = function(cardObject) {
+    cardEl = createCardEl();
+    //create the 3 elements of each card
+    
     if (cardObject.type === "quiz-start"){
-        card.setAttribute("id","quiz-start");
+        cardEl.setAttribute("id","quiz-start");
         el1.innerHTML = cardObject.el1;
         el2.innerHTML = cardObject.el2;
         el3.innerHTML = cardObject.el3;
     }
-    else if (cardObject.type === "question"){
 
+    currentCardHolder.appendChild(cardEl);
+};
+
+//function to format a quiz question card
+var createQuestionCard = function(cardObject) {
+    var cardEl = createCardEl();
+
+    //create question inside of el1
+    el1.innerHTML = cardObject.el1;
+    var unorderedListEl = document.createElement("ul");
+    el2.appendChild(unorderedListEl);
+    
+    //create unordered list of answer buttons
+    for (var i = 0; i < cardObject.el2.length; i++) {
+        var answerButton = document.createElement("button");
+        var listEl = document.createElement("li");
+        answerButton.textContent = cardObject.el2[i];
+        answerButton.setAttribute("class","button");
+        answerButton.setAttribute("id","answer-"+i);
+        listEl.appendChild(answerButton);
+        unorderedListEl.appendChild(listEl);
     }
+    currentCardHolder.appendChild(cardEl);
+};
 
-    currentCardHolder.appendChild(card);
-}
-
-createCard(quizStartCard);
-
-//function to create a quiz question element
+// createCard(quizStartCard);
+createQuestionCard(cardObjects.quizCards.question8);
 
 //function to add the "correct" attribute to the correct answer button
 
