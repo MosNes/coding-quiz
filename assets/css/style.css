@@ -85,3 +85,9 @@ body {
     height: 10px;
     background-color: var(--splash-color);
 }
+
+.main {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
