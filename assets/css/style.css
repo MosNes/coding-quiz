@@ -115,5 +115,18 @@ body {
 }
 
 .el3 {
+    display: flex;
+    justify-content: center;
     border-top: 2px solid var(--splash-color);
+    margin-top: 10px;
+    font-style:italic;
+    min-width: 150px;
+}
+
+.code {
+    display: block;
+    background-color: var(--dark-splash-color);
+    border: 1px solid var(--secondary-color);
+    color: var(--tertiary-color);
+    padding: 10px;
 }

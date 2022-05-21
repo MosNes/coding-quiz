@@ -1,13 +1,19 @@
 # Coding Quiz App
 
+<!-- ![alt text](image.jpg) -->
 <!-- Link to deployed app: [] -->
 
 ## Purpose
 Project for UNC Charlotte Coding Bootcamp.
-All assets created from scratch.
+All code created from scratch.
 Native JavaScript only.
 
+All sample questions taken from https://www.interviewbit.com/javascript-mcq/
+
 This quiz app was created to fit the following requirements outlined for the assignment:
+
+---
+
 
 ## User Story
 AS A coding boot camp student
@@ -15,6 +21,8 @@ AS A coding boot camp student
 I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
 
 SO THAT I can gauge my progress compared to my peers
+
+---
 
 ## MVP Criteria
 GIVEN I am taking a code quiz
@@ -38,6 +46,8 @@ THEN the game is over
 WHEN the game is over
 
 THEN I can save my initials and score
+
+---
 
 ## Built With
 * HTML
