@@ -1,0 +1,58 @@
+:root {
+    --primary-background-color: rgba(55, 61, 61, 1);
+    --dark-splash-color: rgba(26,87,106,1);
+    --primary-color: rgba(63, 124, 133, 1);
+    --secondary-color: rgba(102, 200, 211, 1);
+    --tertiary-color: rgba(114, 242, 235, 1);
+    --splash-color: rgba(255, 94, 93, 1);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
+    background-color: var(--primary-background-color);
+    color: var(--secondary-color);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header div {
+    margin: 15px 20px;
+}
+
+.timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--tertiary-color);
+    background-color: var(--primary-color);
+    min-height: 85px;
+    min-width: 85px;
+}
+
+.timer h3 {
+    font-size: 50px;
+    text-align: center;
+}
+
+.button {
+    outline: none;
+    border: none;
+    display: inline-block;
+    padding: 10px 15px;
+    background: var(--primary-color);
+    font-size: 22px;
+    border-radius: 12px;
+    position: relative;
+    top: -3px;
+    box-shadow: 0 3px var(--dark-splash-color);
+    color: var(--secondary-color);
+  }
