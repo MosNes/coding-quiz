@@ -106,9 +106,13 @@ body {
     color: var(--tertiary-color);
 }
 
+.card h3 {
+    font-size: 24px;
+    text-align: center;
+}
+
 .card p {
     padding: 0px 15px;
-    text-align: center;
 }
 
 .card button {
@@ -122,15 +126,12 @@ body {
 
 .card li button {
     margin-top: 0px;
-    min-width: 250px;
+    min-width: 300px;
+    font-size: 20px;
     }
 
 .el1 {
     margin: 10px 20px;
-}
-
-.el2 {
-    /* width: 100%; */
 }
 
 .el3 {
@@ -140,6 +141,7 @@ body {
     margin-top: 10px;
     font-style:italic;
     min-width: 150px;
+    padding: 5px;
 }
 
 .code {
@@ -151,4 +153,24 @@ body {
     border: 1px solid var(--secondary-color);
     color: var(--tertiary-color);
     padding: 10px;
+}
+
+@media screen and (max-width: 576px) {
+
+    .header button {
+        font-size: 20px;
+    }
+
+    .card {
+        gap: 10px;
+    }
+
+    .card h3 {
+        font-size: 20px;
+    }
+
+    .code {
+        font-size: 18px;
+    }
+    
 }

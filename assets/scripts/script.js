@@ -6,6 +6,9 @@ var score = 0;
 //selects the existing current-card container in the HTML
 var currentCardHolder = document.getElementById("current-card");
 
+//sets answer feedback as a global variable that can be referenced later when user answers questions correctly or incorrectly
+var answerFeedback = "";
+
 //object that contains all the types of cards that can be displayed
 var cardObjects = {
     quizStartCard: {
@@ -31,7 +34,7 @@ var cardObjects = {
         question1: {
             type: "question",
             id:"question1",
-            el1: "<h3>1. JavaScript is a _____ language?</h3>",
+            el1: "<h3>JavaScript is a _____ language?</h3>",
             el2: ["Object-Oriented","Object-Based","Procedural","None of These"],
             el3: "",
             answer: 0
@@ -39,7 +42,7 @@ var cardObjects = {
         question2: {
             type: "question",
             id:"question2",
-            el1: "<h3>2. Which of the following keywords is used to define a variable in Javascript?</h3>",
+            el1: "<h3>Which of the following keywords is used to define a variable in Javascript?</h3>",
             el2: ["var","let","Both A and B","None of The Above"],
             el3: "",
             answer: 2
@@ -47,7 +50,7 @@ var cardObjects = {
         question3: {
             type: "question",
             id:"question3",
-            el1: "<h3>3. Which of the following methods is used to access HTML elements using Javascript?</h3>",
+            el1: "<h3>Which of the following methods is used to access HTML elements using Javascript?</h3>",
             el2: ["getElementById()","getElementByTag()","getElementsByClassName()","Both A and C"],
             el3: "",
             answer: 3
@@ -55,7 +58,7 @@ var cardObjects = {
         question4: {
             type: "question",
             id:"question4",
-            el1: "<h3>4. Upon encountering empty statements, what does the Javascript Interpreter do?</h3>",
+            el1: "<h3>Upon encountering empty statements, what does the Javascript Interpreter do?</h3>",
             el2: ["Throws an Error","Ignores the Statements","Gives a Warning","None of the Above"],
             el3: "",
             answer: 1
@@ -63,7 +66,7 @@ var cardObjects = {
         question5: {
             type: "question",
             id:"question5",
-            el1: "<h3>5. Which of the following methods can be used to display data in some form using Javascript?</h3>",
+            el1: "<h3>Which of the following methods can be used to display data in some form using Javascript?</h3>",
             el2: ["document.write()","console.log()","window.alert()","All of the Above"],
             el3: "",
             answer: 3
@@ -71,7 +74,7 @@ var cardObjects = {
         question6: {
             type: "question",
             id:"question6",
-            el1: "<h3>6. How can a datatype be declared to be a constant type?</h3>",
+            el1: "<h3>How can a datatype be declared to be a constant type?</h3>",
             el2: ["const","var","let","constant"],
             el3: "",
             answer: 0
@@ -79,7 +82,7 @@ var cardObjects = {
         question7: {
             type: "question",
             id:"question7",
-            el1: "<h3>7. What will be the output of the following code snippet?</h3><div class='code'>let a = 5 + '9';<br>document.write(a);</div>",
+            el1: "<h3>What will be the output of the following code snippet?</h3><div class='code'>let a = 5 + '9';<br>document.write(a);</div>",
             el2: ["Compliation Error","14","Runtime Error","59"],
             el3: "",
             answer: 3
@@ -87,7 +90,7 @@ var cardObjects = {
         question8: {
             type: "question",
             id:"question8",
-            el1: "<h3>8. What will be the output of the following code snippet?</h3><div class='code'>var a = 'Scaler';<br>var result = a.substring(2,4);<br>document.write(result);</div>",
+            el1: "<h3>What will be the output of the following code snippet?</h3><div class='code'>var a = 'Scaler';<br>var result = a.substring(2,4);<br>document.write(result);</div>",
             el2: ["al","ale","cal","caler"],
             el3: "",
             answer: 1
@@ -157,11 +160,24 @@ var createQuestionCard = function(cardObject) {
         listEl.appendChild(answerButton);
         unorderedListEl.appendChild(listEl);
     }
+
+    //add the feedback text if present
+    el3.textContent = answerFeedback;
+
+    //add the fully constructed card to the card holder
     currentCardHolder.appendChild(cardEl);
+
+    //selects the answer button that contains the correct answer
+    //has to be done after the elements have been appended to the DOM above, or else it returns null
+    var correctAnswer = document.getElementById("answer-"+cardObject.answer);
+
+    //flags that button as correct using by adding data-answer=correct data attribute
+    correctAnswer.setAttribute("data-answer","correct");
+
 };
 
 // createCard(quizStartCard);
-createQuestionCard(cardObjects.quizCards.question8);
+createQuestionCard(cardObjects.quizCards.question2);
 
 //function to add the "correct" attribute to the correct answer button
 
