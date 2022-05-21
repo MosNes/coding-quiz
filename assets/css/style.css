@@ -5,6 +5,7 @@
     --secondary-color: rgba(102, 200, 211, 1);
     --tertiary-color: rgba(114, 242, 235, 1);
     --splash-color: rgba(255, 94, 93, 1);
+    --white: #f0f8ff;
 }
 
 *{
@@ -17,30 +18,6 @@ body {
     font-family: Calibri, 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
     background-color: var(--primary-background-color);
     color: var(--secondary-color);
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-}
-
-.header div {
-    margin: 15px 20px;
-}
-
-.timer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--tertiary-color);
-    background-color: var(--primary-color);
-    min-height: 85px;
-    min-width: 85px;
-}
-
-.timer h3 {
-    font-size: 50px;
-    text-align: center;
 }
 
 .button {
@@ -56,3 +33,55 @@ body {
     box-shadow: 0 3px var(--dark-splash-color);
     color: var(--secondary-color);
   }
+
+  .button:hover {
+    background: var(--splash-color);
+    color: var(--white);
+    box-shadow: 0 2px var(--dark-splash-color);
+    top: -2px;
+  }
+
+  /* adds a "bounce" effet when button is clicked */
+  .button:active {
+    background: var(--splash-color);
+    color: var(--white);
+    box-shadow: 0 0px var(--dark-splash-color);
+    top: 0px;
+  }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.header div {
+    margin: 20px 25px;
+}
+
+.timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--tertiary-color);
+    background-color: var(--primary-color);
+    min-height: 85px;
+    min-width: 85px;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+.timer:hover {
+    background-color: var(--splash-color);
+    color: var(--white);
+}
+
+.timer h3 {
+    font-size: 50px;
+    text-align: center;
+}
+
+.color-bar {
+    height: 10px;
+    background-color: var(--splash-color);
+}
