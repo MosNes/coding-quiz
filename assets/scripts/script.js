@@ -28,6 +28,9 @@ var score = 0;
 //creates variable for the timer in seconds
 var timerCount = 75;
 
+//create placeholder for the intervalId for the timer
+var intervalId = "";
+
 //creates a variable to determine the starting question number
 var questionNumber = 1;
 
@@ -243,9 +246,25 @@ var resetQuiz = function () {
     answerFeedback = "";
 };
 
-//function to start timer
-
 //function to stop quiz if timer reaches zero
+var stopTimer = function () {
+    clearInterval(intervalId);
+
+};
+
+//function to countdown timer
+var countDown = function(){
+    timerCount -= 1;
+    if (timerCount === 0){
+        stopTimer();
+        stopQuiz();
+    }
+};
+
+//function to start timer
+var startTimer = function (){
+    intervalId = setInterval(countDown,1000);
+};
 
 //function to create High Score list
 var displayHighScores = function() {
