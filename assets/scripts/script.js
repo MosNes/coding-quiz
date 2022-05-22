@@ -1,7 +1,9 @@
 //all sample questions taken from https://www.interviewbit.com/javascript-mcq/
 
-//placeholder variable for highScores
-var highScores = [];
+//--------GLOBAL VARIABLES---------
+
+//import high scores from Local Storage
+var highScores = getHighScores();
 
 //function to check local storage for high scores
 var getHighScores = function(){
@@ -16,10 +18,9 @@ var getHighScores = function(){
     else {
         highScores = JSON.parse(highScores);
     }
-}
 
-//import scores from localStorage
-getHighScores();
+    return highScores;
+}
 
 //creates variable to hold user's current score
 var score = 0;
@@ -129,12 +130,15 @@ var cardObjects = {
 var totalQuestions = Object.keys(cardObjects.quizCards).length;
 
 //example card to use with CSS to test styling
-var quizStartCard = {
-    type: "quiz-start",
-    el1: "<h1>Coding Quiz</h1>",
-    el2: "<p>You have 75 seconds to complete the quiz. Keep in mind that incorrect answers will penalize you by removing 10 seconds from the timer.</p>",
-    el3: '<button class="button" id="quiz-start-btn">Start Quiz</button>'
-}
+// var quizStartCard = {
+//     type: "quiz-start",
+//     el1: "<h1>Coding Quiz</h1>",
+//     el2: "<p>You have 75 seconds to complete the quiz. Keep in mind that incorrect answers will penalize you by removing 10 seconds from the timer.</p>",
+//     el3: '<button class="button" id="quiz-start-btn">Start Quiz</button>'
+// }
+
+
+//--------FUNCTIONS---------
 
 
 //function to create a blank card element
@@ -184,10 +188,12 @@ var createQuestionCard = function(cardObject) {
 
     //create question inside of el1
     el1.innerHTML = cardObject.el1;
+
+    //create ul element inside of el2 to hold the answers
     var unorderedListEl = document.createElement("ul");
     el2.appendChild(unorderedListEl);
     
-    //create unordered list of answer buttons
+    //create list element and button for each answer
     for (var i = 0; i < cardObject.el2.length; i++) {
         var answerButton = document.createElement("button");
         var listEl = document.createElement("li");
@@ -214,9 +220,6 @@ var createQuestionCard = function(cardObject) {
 
 };
 
-
-// createQuestionCard(cardObjects.quizCards.question2);
-
 //function to remove the current card from the card holder element
 var removeCard = function() {
     currentCardHolder.removeChild(cardEl);
@@ -233,11 +236,7 @@ var stopQuiz = function (){
 
 //function to stop quiz if timer reaches zero
 
-//function to save scores to localStorage
-
-//function to retrieve scores from localStorage
-
-//function to start quiz and handle transition from question to question
+//event handler for buttons in each card
 var cardClickHandler = function(event){
     //capture the Id of the element that was clicked
     targetId = event.target.getAttribute("id");
@@ -264,9 +263,10 @@ var cardClickHandler = function(event){
             score+=10;
             answerFeedback = "Correct!";
         }
-        //if answer is incorrect, set answerFeedback to Incorrect
+        //if answer is incorrect, set answerFeedback to Incorrect and subtract 10 seconds from timer
         else {
-            answerFeedback = "Incorrect."
+            answerFeedback = "Incorrect.";
+            timerCount -= 10;
         }
         //removes the current card
         removeCard();
@@ -288,8 +288,14 @@ var submitHandler = function(event){
     createCard(cardObjects.highScoreCard);
 }
 
+
+//--------INITIALIZATION CODE---------
+
 //creates the starting card
 createCard(cardObjects.quizEndCard);
+
+//test creation of other cards
+// createQuestionCard(cardObjects.quizCards.question2);
 
 //click event listener
 currentCardHolder.addEventListener("click",cardClickHandler);
