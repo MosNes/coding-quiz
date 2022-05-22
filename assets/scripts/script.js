@@ -28,6 +28,9 @@ var score = 0;
 //creates variable for the timer in seconds
 var timerCount = 75;
 
+//selects timer-count element to be updated as timer decreases
+var timerCountEl = document.getElementById("timer-count");
+
 //create placeholder for the intervalId for the timer
 var intervalId = "";
 
@@ -233,7 +236,8 @@ var removeCard = function() {
 
 //function to stop quiz and go to the quiz end card
 var stopQuiz = function (){
-    score = score+(timerCount*10);
+    stopTimer();
+    score = score+timerCount;
     removeCard();
     createCard(cardObjects.quizEndCard);
 };
@@ -242,6 +246,7 @@ var stopQuiz = function (){
 var resetQuiz = function () {
     score = 0;
     timerCount = 75;
+    timerCountEl.textContent = 75;
     questionNumber = 1;
     answerFeedback = "";
 };
@@ -249,14 +254,17 @@ var resetQuiz = function () {
 //function to stop quiz if timer reaches zero
 var stopTimer = function () {
     clearInterval(intervalId);
-
 };
 
 //function to countdown timer
-var countDown = function(){
-    timerCount -= 1;
-    if (timerCount === 0){
-        stopTimer();
+var countDown = function () {
+    if (timerCount > 0) {
+        timerCount -= 1;
+        timerCountEl.textContent = timerCount;
+    }
+    else {
+        timerCount = 0;
+        timerCountEl.textContent = 0;
         stopQuiz();
     }
 };
@@ -298,6 +306,7 @@ var cardClickHandler = function(event){
     if (targetId === "quiz-start-btn") {
         removeCard();
         createQuestionCard(cardObjects.quizCards.question1);
+        startTimer();
         return;
     }
     //moves to the next question if an answer is clicked
@@ -313,13 +322,18 @@ var cardClickHandler = function(event){
         }
         //if the answer is correct, add 10pts to the score and set answerFeedback to correct, so it will display on the next card
         if (event.target.getAttribute("data-answer")==="correct"){
-            score+=10;
+            score+=100;
             answerFeedback = "Correct!";
         }
         //if answer is incorrect, set answerFeedback to Incorrect and subtract 10 seconds from timer
         else {
             answerFeedback = "Incorrect.";
+            if(timerCount>10){
             timerCount -= 10;
+            }
+            else{
+            timerCount = 0;
+            }
         }
         //removes the current card
         removeCard();
@@ -369,7 +383,7 @@ var submitHandler = function(event){
 //--------INITIALIZATION CODE---------
 
 //creates the starting card
-createCard(cardObjects.highScoreCard);
+createCard(cardObjects.quizStartCard);
 
 //test creation of other cards
 // createQuestionCard(cardObjects.quizCards.question2);
