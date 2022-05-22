@@ -179,9 +179,10 @@ var createQuestionCard = function(cardObject) {
 // createCard(quizStartCard);
 createQuestionCard(cardObjects.quizCards.question2);
 
-//function to add the "correct" attribute to the correct answer button
-
 //function to remove the current card from the card holder element
+var removeCard = function() {
+    currentCardHolder.removeChild(cardEl);
+};
 
 //function to start timer
 
