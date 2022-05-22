@@ -31,11 +31,14 @@ var timerCount = 75;
 //creates a variable to determine the starting question number
 var questionNumber = 1;
 
+//sets answer feedback as a global variable that can be referenced later when user answers questions correctly or incorrectly
+var answerFeedback = "";
+
 //selects the existing current-card container in the HTML
 var currentCardHolder = document.getElementById("current-card");
 
-//sets answer feedback as a global variable that can be referenced later when user answers questions correctly or incorrectly
-var answerFeedback = "";
+//selects the header element in the HTML
+var highScoreButtonEl = document.getElementById("high-score-btn")
 
 //object that contains all the types of cards that can be displayed
 var cardObjects = {
@@ -230,11 +233,35 @@ var stopQuiz = function (){
     score = score+(timerCount*10);
     removeCard();
     createCard(cardObjects.quizEndCard);
-}
+};
+
+//function to reset timer, score, question number, and feedback to default values
+var resetQuiz = function () {
+    score = 0;
+    timerCount = 75;
+    questionNumber = 1;
+    answerFeedback = "";
+};
 
 //function to start timer
 
 //function to stop quiz if timer reaches zero
+
+//function to create High Score list
+var displayHighScores = function() {
+    //creates a ul element to hold each high score and appends it to the el2 div on the card
+    var highScoreTableEl = document.createElement("ul");
+    highScoreTableEl.setAttribute("id","high-score-table");
+    el2.appendChild(highScoreTableEl);
+
+    //creates a list element for each item in the highScores array
+    for (var i = 0; i < highScores.length; i++){
+        var scoreListEl = document.createElement("li");
+        scoreListEl.innerHTML = "<div class='score-initials'>"+highScores[i].initials+"</div><div class='score'>"+highScores[i].score+"</div>"
+        highScoreTableEl.appendChild(scoreListEl);
+    }
+
+}
 
 //event handler for buttons in each card
 var cardClickHandler = function(event){
@@ -272,12 +299,23 @@ var cardClickHandler = function(event){
         removeCard();
         //creates the next card using the question number
         createQuestionCard(cardObjects.quizCards["question"+questionNumber]);
+        return;
     }
+    //restarts the quiz
     else if (targetId === "restart-btn") {
+        resetQuiz();
         removeCard();
         createCard(cardObjects.quizStartCard);
+        return;
+    }
+    else if (targetId === "high-score-btn") {
+        resetQuiz();
+        removeCard();
+        createCard(cardObjects.highScoreCard);
+        displayHighScores();
     }
 };
+
 
 //handles form submit events from the quiz end card to save high scores
 var submitHandler = function(event){
@@ -308,8 +346,11 @@ createCard(cardObjects.highScoreCard);
 //test creation of other cards
 // createQuestionCard(cardObjects.quizCards.question2);
 
-//click event listener
+//card click event listener
 currentCardHolder.addEventListener("click",cardClickHandler);
+
+//high Score Button click event listener
+highScoreButtonEl.addEventListener("click",cardClickHandler);
 
 //form submit event listener for high score form
 currentCardHolder.addEventListener("submit",submitHandler);

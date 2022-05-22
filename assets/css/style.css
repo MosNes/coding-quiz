@@ -153,8 +153,29 @@ body {
     margin-top: 20px;
 }
 
+#high-score-table {
+    width: 175px;
+}
+
+#high-score-table li {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--dark-splash-color);
+    border-radius: 12px;
+    padding: 10px 20px;
+}
+
 .el1 {
     margin: 10px 20px;
+}
+
+.el2 {
+    display: flex;
+    justify-content: center;
+}
+
+.el2 p {
+    text-align: center;
 }
 
 .el3 {
