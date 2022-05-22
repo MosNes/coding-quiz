@@ -3,6 +3,12 @@
 //creates variable to hold user's current score
 var score = 0;
 
+//creates variable for the timer in seconds
+var timerCount = 75;
+
+//creates a variable to determine the starting question number
+var questionNumber = 1;
+
 //selects the existing current-card container in the HTML
 var currentCardHolder = document.getElementById("current-card");
 
@@ -12,16 +18,16 @@ var answerFeedback = "";
 //object that contains all the types of cards that can be displayed
 var cardObjects = {
     quizStartCard: {
-        type: "quiz-start",
+        id: "quiz-start",
         el1: "<h1>Coding Quiz</h1>",
         el2: "<p>You have 75 seconds to complete the quiz. Keep in mind that incorrect answers will penalize you by removing 10 seconds from the timer.</p>",
         el3: '<button class="button" id="quiz-start-btn">Start Quiz</button>'
     },
     quizEndCard: {
         id:"quiz-end-card",
-        el1: "",
+        el1: "<h3>All Done!</h3>",
         el2: "",
-        el3: ""
+        el3: "<form><label for='initials'>Enter Your Initials: </label><input type='text' id='initials' name='initials'><br><div class='submit-wrapper'><button class='button' id='form-submit'>Submit</button></div></form>"
     },
     highScoreCard: {
         id:"high-score-card",
@@ -98,6 +104,9 @@ var cardObjects = {
     }
 };
 
+//creates a variable that holds the total number of questions in the quizCards object
+var totalQuestions = Object.keys(cardObjects.quizCards).length;
+
 //example card to use with CSS to test styling
 var quizStartCard = {
     type: "quiz-start",
@@ -130,12 +139,19 @@ var createCardEl = function() {
 var createCard = function(cardObject) {
     cardEl = createCardEl();
     //create the 3 elements of each card
+    el1.innerHTML = cardObject.el1;
+    el2.innerHTML = cardObject.el2;
+    el3.innerHTML = cardObject.el3;
     
-    if (cardObject.type === "quiz-start"){
-        cardEl.setAttribute("id","quiz-start");
-        el1.innerHTML = cardObject.el1;
-        el2.innerHTML = cardObject.el2;
-        el3.innerHTML = cardObject.el3;
+    if (cardObject.id === "quiz-start"){
+        cardEl.setAttribute("id",cardObject.id);
+    }
+    else if (cardObject.id === "quiz-end-card"){
+        cardEl.setAttribute("id",cardObject.id);
+        el2.innerHTML = "<p>Your final score is "+score+"<p>";
+    }  
+    else if (cardObject.id === "high-score-card"){
+        cardEl.setAttribute("id",cardObject.id);
     }
 
     currentCardHolder.appendChild(cardEl);
@@ -156,6 +172,7 @@ var createQuestionCard = function(cardObject) {
         var listEl = document.createElement("li");
         answerButton.textContent = cardObject.el2[i];
         answerButton.setAttribute("class","button");
+        //sets the ID of each button equal to answer-index
         answerButton.setAttribute("id","answer-"+i);
         listEl.appendChild(answerButton);
         unorderedListEl.appendChild(listEl);
@@ -176,13 +193,19 @@ var createQuestionCard = function(cardObject) {
 
 };
 
-// createCard(quizStartCard);
-createQuestionCard(cardObjects.quizCards.question2);
+
+// createQuestionCard(cardObjects.quizCards.question2);
 
 //function to remove the current card from the card holder element
 var removeCard = function() {
     currentCardHolder.removeChild(cardEl);
 };
+
+//function to stop quiz and go to the quiz end card
+var stopQuiz = function (){
+    removeCard();
+    createCard(cardObjects.quizEndCard);
+}
 
 //function to start timer
 
@@ -192,9 +215,57 @@ var removeCard = function() {
 
 //function to retrieve scores from localStorage
 
-//function to start quiz and handle
+//function to start quiz and handle transition from question to question
+var cardClickHandler = function(event){
+    //capture the Id of the element that was clicked
+    targetId = event.target.getAttribute("id");
+
+    //start the quiz if the start button is clicked
+    if (targetId === "quiz-start-btn") {
+        removeCard();
+        createQuestionCard(cardObjects.quizCards.question1);
+        return;
+    }
+    //moves to the next question if an answer is clicked
+    else if (targetId === "answer-0" || targetId === "answer-1" || targetId === "answer-2" || targetId === "answer-3") {
+        //increments the question number up by one if under the total # of questions
+        if (questionNumber<totalQuestions) {
+            questionNumber++;
+        }
+        //moves to the quiz end card if on the last question
+        else if (questionNumber === totalQuestions){
+            stopQuiz();
+            return;
+        }
+        //if the answer is correct, add 10pts to the score and set answerFeedback to correct, so it will display on the next card
+        if (event.target.getAttribute("data-answer")==="correct"){
+            score+=10;
+            answerFeedback = "Correct!";
+        }
+        //if answer is incorrect, set answerFeedback to Incorrect
+        else {
+            answerFeedback = "Incorrect."
+        }
+        //removes the current card
+        removeCard();
+        //creates the next card using the question number
+        createQuestionCard(cardObjects.quizCards["question"+questionNumber]);
+    }
+};
+
+var submitHandler = function(event){
+    event.preventDefault();
+    var initialsInput = document.getElementById("initials").value;
+    console.log(initialsInput);
+}
+
+//creates the starting card
+createCard(cardObjects.quizEndCard);
 
 //click event listener
+currentCardHolder.addEventListener("click",cardClickHandler);
+
+currentCardHolder.addEventListener("submit",submitHandler);
 
 //form submit event listener for high score form
 
