@@ -352,6 +352,7 @@ var cardClickHandler = function(event){
     }
     //displays the high scores card
     else if (targetId === "high-score-btn") {
+        stopTimer();
         resetQuiz();
         removeCard();
         createCard(cardObjects.highScoreCard);
