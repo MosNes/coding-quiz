@@ -254,6 +254,13 @@ var displayHighScores = function() {
     highScoreTableEl.setAttribute("id","high-score-table");
     el2.appendChild(highScoreTableEl);
 
+    //sort array of scores so that the highest is first
+    highScores.sort(function (a,b){
+        return b.score - a.score;
+    });
+
+    console.log(highScores);
+
     //creates a list element for each item in the highScores array
     for (var i = 0; i < highScores.length; i++){
         var scoreListEl = document.createElement("li");
