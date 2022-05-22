@@ -52,7 +52,7 @@ var cardObjects = {
         id:"quiz-end-card",
         el1: "<h3>All Done!</h3>",
         el2: "",
-        el3: "<form><label for='initials'>Enter Your Initials: </label><input type='text' id='initials' name='initials'><br><div class='submit-wrapper'><button class='button' id='form-submit'>Submit</button></div></form>"
+        el3: "<form><label for='initials'>Enter Your Initials: </label><input type='text' id='initials' name='initials'><br><div class='submit-wrapper'><button class='button' id='form-submit'>Submit</button><button class='button' id='restart-btn'>Go Back</button></div></form>"
     },
     highScoreCard: {
         id:"high-score-card",
@@ -340,8 +340,10 @@ var submitHandler = function(event){
     //converts current highScores array into a string and saves it to localStorage, overwriting any previous score arrays
     localStorage.setItem("scores",JSON.stringify(highScores));
     //removes quiz end card and displays the high score card
+    resetQuiz();
     removeCard();
     createCard(cardObjects.highScoreCard);
+    displayHighScores();
 }
 
 

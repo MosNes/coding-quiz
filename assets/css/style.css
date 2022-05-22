@@ -155,10 +155,11 @@ body {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    gap:20px;
 }
 
 #high-score-table {
-    width: 175px;
+    width: 200px;
 }
 
 #high-score-table li {
