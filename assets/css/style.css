@@ -60,6 +60,10 @@ body {
     margin: 20px 25px;
 }
 
+.footer {
+    margin-top: 50px;
+}
+
 .timer {
     display: flex;
     justify-content: center;
