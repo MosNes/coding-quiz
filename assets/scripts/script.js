@@ -237,6 +237,7 @@ var removeCard = function() {
 //function to stop quiz and go to the quiz end card
 var stopQuiz = function (){
     stopTimer();
+    //generates final score
     score = score+timerCount;
     removeCard();
     createCard(cardObjects.quizEndCard);
@@ -251,17 +252,19 @@ var resetQuiz = function () {
     answerFeedback = "";
 };
 
-//function to stop quiz if timer reaches zero
+//function to stop timer
 var stopTimer = function () {
     clearInterval(intervalId);
 };
 
 //function to countdown timer
 var countDown = function () {
+    //decrease only if timer is greater than zero
     if (timerCount > 0) {
         timerCount -= 1;
         timerCountEl.textContent = timerCount;
     }
+    //otherwise set timer to 0 and end the quiz
     else {
         timerCount = 0;
         timerCountEl.textContent = 0;
@@ -271,6 +274,7 @@ var countDown = function () {
 
 //function to start timer
 var startTimer = function (){
+    //saves intervalId to be referenced later by stopTimer
     intervalId = setInterval(countDown,1000);
 };
 
@@ -285,8 +289,6 @@ var displayHighScores = function() {
     highScores.sort(function (a,b){
         return b.score - a.score;
     });
-
-    console.log(highScores);
 
     //creates a list element for each item in the highScores array
     for (var i = 0; i < highScores.length; i++){
@@ -348,6 +350,7 @@ var cardClickHandler = function(event){
         createCard(cardObjects.quizStartCard);
         return;
     }
+    //displays the high scores card
     else if (targetId === "high-score-btn") {
         resetQuiz();
         removeCard();
