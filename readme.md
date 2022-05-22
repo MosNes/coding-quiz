@@ -1,7 +1,11 @@
 # Coding Quiz App
 
-<!-- ![alt text](image.jpg) -->
-<!-- Link to deployed app: [] -->
+Link to deployed app: []
+
+![Title Page of Quiz](./assets/images/Screenshot2.JPG)
+---
+![Example Question Page](./assets/images/Screenshot1.JPG)
+
 
 ## Purpose
 Project for UNC Charlotte Coding Bootcamp.
