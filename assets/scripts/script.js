@@ -55,7 +55,7 @@ var cardObjects = {
         id:"high-score-card",
         el1: "<h1>High Scores</h1>",
         el2: "",
-        el3: ""
+        el3: "<button class='button' id='restart-btn'>Go Back</button>"
     },
     quizCards: {
         //answer property is the index of the correct answer in the array
@@ -273,6 +273,10 @@ var cardClickHandler = function(event){
         //creates the next card using the question number
         createQuestionCard(cardObjects.quizCards["question"+questionNumber]);
     }
+    else if (targetId === "restart-btn") {
+        removeCard();
+        createCard(cardObjects.quizStartCard);
+    }
 };
 
 //handles form submit events from the quiz end card to save high scores
@@ -299,7 +303,7 @@ var submitHandler = function(event){
 //--------INITIALIZATION CODE---------
 
 //creates the starting card
-createCard(cardObjects.quizEndCard);
+createCard(cardObjects.highScoreCard);
 
 //test creation of other cards
 // createQuestionCard(cardObjects.quizCards.question2);
@@ -307,7 +311,8 @@ createCard(cardObjects.quizEndCard);
 //click event listener
 currentCardHolder.addEventListener("click",cardClickHandler);
 
+//form submit event listener for high score form
 currentCardHolder.addEventListener("submit",submitHandler);
 
-//form submit event listener for high score form
+
 
