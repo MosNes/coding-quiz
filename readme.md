@@ -1,9 +1,13 @@
 # Coding Quiz App
 
-Link to deployed app: []
+Link to deployed app: https://mosnes.github.io/coding-quiz/
+
+---
 
 ![Title Page of Quiz](./assets/images/Screenshot2.JPG)
+
 ---
+
 ![Example Question Page](./assets/images/Screenshot1.JPG)
 
 
