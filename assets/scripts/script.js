@@ -1,5 +1,26 @@
 //all sample questions taken from https://www.interviewbit.com/javascript-mcq/
 
+var highScores = [];
+
+//function to check local storage for high scores
+var getHighScores = function(){
+
+    highScores = localStorage.getItem("scores");
+    //if getting scores doesn't return anything, create an empty array
+    if (!highScores) {
+        localStorage.setItem("scores","[]");
+        highScores = [];
+    }
+    else {
+        highScores = JSON.parse(highScores);
+    }
+    console.log(highScores);
+    console.log(typeof highScores)
+}
+
+getHighScores();
+
+
 //creates variable to hold user's current score
 var score = 0;
 
@@ -31,7 +52,7 @@ var cardObjects = {
     },
     highScoreCard: {
         id:"high-score-card",
-        el1: "",
+        el1: "<h1>High Scores</h1>",
         el2: "",
         el3: ""
     },
@@ -203,6 +224,7 @@ var removeCard = function() {
 
 //function to stop quiz and go to the quiz end card
 var stopQuiz = function (){
+    score = score+(timerCount*10);
     removeCard();
     createCard(cardObjects.quizEndCard);
 }
@@ -256,7 +278,14 @@ var cardClickHandler = function(event){
 var submitHandler = function(event){
     event.preventDefault();
     var initialsInput = document.getElementById("initials").value;
-    console.log(initialsInput);
+    var highScoreObj = {
+        initials: initialsInput,
+        score: score
+    };
+    highScores.push(highScoreObj);
+    localStorage.setItem("scores",JSON.stringify(highScores));
+    removeCard();
+    createCard(cardObjects.highScoreCard);
 }
 
 //creates the starting card
