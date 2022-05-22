@@ -2,9 +2,6 @@
 
 //--------GLOBAL VARIABLES---------
 
-//import high scores from Local Storage
-var highScores = getHighScores();
-
 //function to check local storage for high scores
 var getHighScores = function(){
 
@@ -21,6 +18,9 @@ var getHighScores = function(){
 
     return highScores;
 }
+
+//import high scores from Local Storage
+var highScores = getHighScores();
 
 //creates variable to hold user's current score
 var score = 0;
