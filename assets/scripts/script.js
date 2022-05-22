@@ -275,15 +275,22 @@ var cardClickHandler = function(event){
     }
 };
 
+//handles form submit events from the quiz end card to save high scores
 var submitHandler = function(event){
+    //prevents browser from refreshing on submit
     event.preventDefault();
+    //gets user initials from the input field
     var initialsInput = document.getElementById("initials").value;
+    //constructs a high score object using the user's initials and score
     var highScoreObj = {
         initials: initialsInput,
         score: score
     };
+    //adds the user's highScoreObj to the existing highScores array
     highScores.push(highScoreObj);
+    //converts current highScores array into a string and saves it to localStorage, overwriting any previous score arrays
     localStorage.setItem("scores",JSON.stringify(highScores));
+    //removes quiz end card and displays the high score card
     removeCard();
     createCard(cardObjects.highScoreCard);
 }
