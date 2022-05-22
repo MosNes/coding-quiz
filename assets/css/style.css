@@ -64,6 +64,12 @@ body {
     margin-top: 50px;
 }
 
+.footer-text {
+    padding: 10px 10px;
+    text-align: right;
+    font-size: 14px;
+}
+
 .timer {
     display: flex;
     justify-content: center;
