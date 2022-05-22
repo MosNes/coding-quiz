@@ -1,25 +1,25 @@
 //all sample questions taken from https://www.interviewbit.com/javascript-mcq/
 
+//placeholder variable for highScores
 var highScores = [];
 
 //function to check local storage for high scores
 var getHighScores = function(){
 
     highScores = localStorage.getItem("scores");
-    //if getting scores doesn't return anything, create an empty array
+    //if getting scores doesn't return anything, create an empty array and save an empty array to localStorage
     if (!highScores) {
         localStorage.setItem("scores","[]");
         highScores = [];
     }
+    //else parse the array in local storage
     else {
         highScores = JSON.parse(highScores);
     }
-    console.log(highScores);
-    console.log(typeof highScores)
 }
 
+//import scores from localStorage
 getHighScores();
-
 
 //creates variable to hold user's current score
 var score = 0;
